@@ -379,12 +379,12 @@ namespace starling.extensions.camera {
 		{
 			return _world.numChildren;
 		}
-	}
-	
-	
-	
-	internal class Harness : Sprite
-	{
+		}
+		
+		
+		
+		internal class Harness : Sprite
+		{
 		Point _center;
 		float _rotation = 0;
 		
@@ -430,8 +430,6 @@ namespace starling.extensions.camera {
 		}
 		
 	}
-	
-	
 	
 	internal class World : Sprite
 	{

@@ -33,23 +33,23 @@ namespace starling.extensions.camera {
 		}
 		
 		public static Rectangle inflate(Rectangle rect, float x, float y)
-	    {
-	        rect.x -= x;
-	        rect.y -= y;
-	        rect.width += x * 2;
-	        rect.height += y * 2;
+		{
+		    rect.x -= x;
+		    rect.y -= y;
+		    rect.width += x * 2;
+		    rect.height += y * 2;
 			
 			return rect;
-	    }
+		}
 		
 		public static Rectangle inflatePoint(Rectangle rect, Point pt)
-	    {
-	        rect.x -= pt.x;
-	        rect.y -= pt.y;
-	        rect.width += pt.x * 2;
-	        rect.height += pt.y * 2;
+		{
+		    rect.x -= pt.x;
+		    rect.y -= pt.y;
+		    rect.width += pt.x * 2;
+		    rect.height += pt.y * 2;
 			
 			return rect;
-	    }
+		}
 	}
 }

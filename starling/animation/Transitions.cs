@@ -29,7 +29,7 @@ namespace starling.animation {
      *  
      *  <pre>function myTransition(ratio:Number):Number</pre>
      */
-	public class Transitions {
+	public abstract class Transitions {
 		
 		public const string LINEAR = "linear";
 		public const string EASE_IN = "easeIn";
@@ -52,13 +52,12 @@ namespace starling.animation {
 		public const string EASE_OUT_SINE = "easeOutSine";
 		public const string EASE_IN_OUT_SINE = "easeInOutSine";
 		
-		//private static Dictionary sTransitions;
 		private static Dictionary<string, Delegate> sTransitions;
 		private delegate float transitionDelegate(float ratio);
 		private const float _HALF_PI = Mathf.PI / 2;
 		
 		/** @private */
-		public Transitions() { /*throw new AbstractClassError();*/ }
+		//public Transitions() { /*throw new AbstractClassError();*/ }
 		
 		/** Returns the transition function that was registered under a certain name. */ 
 		public static Delegate getTransition(string name)
