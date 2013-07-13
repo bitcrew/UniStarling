@@ -53,10 +53,10 @@ namespace starling.animation {
 		public void advanceTime(float time)
 		{
 			var previousTime = mCurrentTime;
-		    mCurrentTime = Mathf.Min(mTotalTime, mCurrentTime + time);
-		    
-		    if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)
-		    {
+			mCurrentTime = Mathf.Min(mTotalTime, mCurrentTime + time);
+			
+			if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)
+			{
 				if(mArgs == null)
 				{
 					mCall.DynamicInvoke(null);	
@@ -66,18 +66,18 @@ namespace starling.animation {
 					// needs object cast for CallbackDelegateWithArgs
 					mCall.DynamicInvoke((object[])mArgs);	
 				}
-					
-		        if (mRepeatCount == 0 || mRepeatCount > 1)
-		        {
-		            if (mRepeatCount > 0) mRepeatCount -= 1;
-		            mCurrentTime = 0;
-		            advanceTime((previousTime + time) - mTotalTime);
-		        }
-		        else
-		        {
-		            dispatchEvent( new CEvent(starling.events.Event.REMOVE_FROM_JUGGLER) );
-		        }
-		    }
+			
+				if (mRepeatCount == 0 || mRepeatCount > 1)
+				{
+					if (mRepeatCount > 0) mRepeatCount -= 1;
+					mCurrentTime = 0;
+					advanceTime((previousTime + time) - mTotalTime);
+				}
+				else
+				{
+					dispatchEvent( new CEvent(starling.events.Event.REMOVE_FROM_JUGGLER) );
+				}
+			}
 		}
 		
 		/** Indicates if enough time has passed, and the call has already been executed. */

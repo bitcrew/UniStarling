@@ -1,3 +1,13 @@
+// =================================================================================================
+//
+//  Starling Framework
+//  Copyright 2011 Gamua OG. All Rights Reserved.
+//
+//  This program is free software. You can redistribute and/or modify it
+//  in accordance with the terms of the accompanying license agreement.
+//
+// =================================================================================================
+
 using UnityEngine;
 using System;
 using System.Collections;
@@ -33,10 +43,10 @@ namespace starling.display {
 			matrix.ty = 0.0f;
 			
 			float mRotation = m_Rotation * Mathf.PI / 180;
-            if (mRotation != 0.0f)
-            {
-                matrix.rotate(mRotation);
-            }
+		    if (mRotation != 0.0f)
+		    {
+		        matrix.rotate(mRotation);
+		    }
 			
 			matrix.tx = m_x - mPivotX * matrix.a - mPivotY * matrix.c;
 			matrix.ty = m_y - mPivotX * matrix.b - mPivotY * matrix.d;
@@ -51,30 +61,30 @@ namespace starling.display {
 		}
 		
 		/** The x coordinate of the object's origin in its own coordinate space (default: 0). */
-        public float pivotX
+		public float pivotX
 		{
 			get { return mPivotX; }
-        	set { 
-	            if (mPivotX != value)
-	            {
-	                mPivotX = value;
+			set { 
+		        if (mPivotX != value)
+		        {
+		            mPivotX = value;
 					overrideMatrix();
-	            }
+		        }
 			}
-        }
-        
-        /** The y coordinate of the object's origin in its own coordinate space (default: 0). */
-        public float pivotY
+		}
+		
+		/** The y coordinate of the object's origin in its own coordinate space (default: 0). */
+		public float pivotY
 		{
 			get { return mPivotY; }
-        	set {
-	            if (mPivotY != value)
-	            {
-	                mPivotY = value;
+			set {
+		        if (mPivotY != value)
+		        {
+		            mPivotY = value;
 					overrideMatrix();
-	            }
+		        }
 			}
-        }
+		}
 		
 		public new float x
 		{
