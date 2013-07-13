@@ -75,12 +75,12 @@ namespace starling.animation {
 		
 		private static void registerDefaults()
 		{
-		    sTransitions = new Dictionary<string, Delegate>();
-		    
-		    register(LINEAR, new transitionDelegate(linear));
-		    register(EASE_IN, new transitionDelegate(easeIn));
-		    register(EASE_OUT, new transitionDelegate(easeOut));
-		    register(EASE_IN_OUT, new transitionDelegate(easeInOut));
+			sTransitions = new Dictionary<string, Delegate>();
+			
+			register(LINEAR, new transitionDelegate(linear));
+			register(EASE_IN, new transitionDelegate(easeIn));
+			register(EASE_OUT, new transitionDelegate(easeOut));
+			register(EASE_IN_OUT, new transitionDelegate(easeInOut));
 			register(EASE_OUT_IN, new transitionDelegate(easeOutIn));
 			register(EASE_IN_BACK, new transitionDelegate(easeInBack));
 			register(EASE_OUT_BACK, new transitionDelegate(easeOutBack));

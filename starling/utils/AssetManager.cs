@@ -29,7 +29,6 @@ namespace starling.utils {
 		
 		private float mScaleFactor;
 		private bool mVerbose;
-		private Juggler mJuggler;
 		
 		private Stack<AssetItem> mRawAssets;
 		private Dictionary<String, STexture> mTextures;
@@ -43,11 +42,10 @@ namespace starling.utils {
 		private float currentRatio;
 		
 		
-		public AssetManager(float scaleFactor=1f, bool useMipmaps=false, Juggler juggler=null){
+		public AssetManager(float scaleFactor=1f, bool useMipmaps=false){
 			
 		    mScaleFactor = scaleFactor > 0f ? scaleFactor : 1f;
 			mVerbose = false;
-			mJuggler = juggler;
 			
 		    mRawAssets = new Stack<AssetItem>();
 		    mTextures = new Dictionary<String, STexture>();
@@ -265,7 +263,7 @@ namespace starling.utils {
 		    log ("ratio : " + currentRatio.ToString("F2"));    
 			
 		    if (mRawAssets.Count > 0){
-				mJuggler.delayCall(processNext, 1.0f);
+				Starling.juggler.delayCall(processNext, 1.0f);
 		    }else{
 		        processXmls();
 			}
