@@ -22,10 +22,10 @@ namespace starling.animation {
 		public delegate void CallbackDelegateWithArgs(object[] args);
 		
 		private float mCurrentTime;
-        private float mTotalTime;
+		private float mTotalTime;
 		private Delegate mCall;
-        private object[] mArgs;
-        private int mRepeatCount;
+		private object[] mArgs;
+		private int mRepeatCount;
         
 		
 		public DelayedCall(Delegate call, float delay)
