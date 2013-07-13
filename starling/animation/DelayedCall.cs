@@ -29,34 +29,34 @@ namespace starling.animation {
         
 		
 		public DelayedCall(Delegate call, float delay)
-        {
+		{
 			reset(call, delay, null);
-        }
+		}
 		
 		public DelayedCall(Delegate call, float delay, object[] args)
-        {
+		{
 			reset(call, delay, args);
-        }
+		}
 		
 		/** Resets the delayed call to its default values, which is useful for pooling. */
-        public DelayedCall reset(Delegate call, float delay, object[] args)
-        {
-            mCurrentTime = 0;
-            mTotalTime = Convert.ToSingle( Mathf.Max(delay, 0.0001f) );
-            mCall = call;
-            mArgs = args;
-            mRepeatCount = 1;
-            
-            return this;
-        }
+		public DelayedCall reset(Delegate call, float delay, object[] args)
+		{
+			mCurrentTime = 0;
+			mTotalTime = Convert.ToSingle( Mathf.Max(delay, 0.0001f) );
+			mCall = call;
+			mArgs = args;
+			mRepeatCount = 1;
+			
+			return this;
+		}
         
-        public void advanceTime(float time)
-        {
-        	var previousTime = mCurrentTime;
-            mCurrentTime = Mathf.Min(mTotalTime, mCurrentTime + time);
-            
-            if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)
-            {
+		public void advanceTime(float time)
+		{
+			var previousTime = mCurrentTime;
+		    mCurrentTime = Mathf.Min(mTotalTime, mCurrentTime + time);
+		    
+		    if (previousTime < mTotalTime && mCurrentTime >= mTotalTime)
+		    {
 				if(mArgs == null)
 				{
 					mCall.DynamicInvoke(null);	
@@ -67,43 +67,43 @@ namespace starling.animation {
 					mCall.DynamicInvoke((object[])mArgs);	
 				}
 					
-                if (mRepeatCount == 0 || mRepeatCount > 1)
-                {
-                    if (mRepeatCount > 0) mRepeatCount -= 1;
-                    mCurrentTime = 0;
-                    advanceTime((previousTime + time) - mTotalTime);
-                }
-                else
-                {
-                    dispatchEvent( new CEvent(starling.events.Event.REMOVE_FROM_JUGGLER) );
-                }
-            }
-        }
+		        if (mRepeatCount == 0 || mRepeatCount > 1)
+		        {
+		            if (mRepeatCount > 0) mRepeatCount -= 1;
+		            mCurrentTime = 0;
+		            advanceTime((previousTime + time) - mTotalTime);
+		        }
+		        else
+		        {
+		            dispatchEvent( new CEvent(starling.events.Event.REMOVE_FROM_JUGGLER) );
+		        }
+		    }
+		}
 		
 		/** Indicates if enough time has passed, and the call has already been executed. */
-        public Boolean isComplete
-        { 
-            get { return mRepeatCount == 1 && mCurrentTime >= mTotalTime; } 
-        }
+		public Boolean isComplete
+		{ 
+		    get { return mRepeatCount == 1 && mCurrentTime >= mTotalTime; } 
+		}
 		
 		/** The time for which calls will be delayed (in seconds). */
-        public float totalTime
+		public float totalTime
 		{ 
 			get { return mTotalTime; }
 		}
 		
 		/** The time that has already passed (in seconds). */
-        public float currentTime
+		public float currentTime
 		{
 			get { return mCurrentTime; }
 		}
 		
 		/** The number of times the call will be repeated. 
-         *  Set to '0' to repeat indefinitely. @default 1 */
-        public int repeatCount
+		 *  Set to '0' to repeat indefinitely. @default 1 */
+		public int repeatCount
 		{ 
 			get { return mRepeatCount; }
-        	set { mRepeatCount = value; }
+			set { mRepeatCount = value; }
 		}
 		
 		// callback delegate helpers
