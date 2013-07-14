@@ -7,7 +7,8 @@ uniSWF is a commercial product and is not included with the source for this proj
 
 http://www.uniswf.com
 
-__Demos__
+Demos
+-------------------------
 
 A quick port of the Starling scaffold demo 
 
