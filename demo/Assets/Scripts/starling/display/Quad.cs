@@ -13,35 +13,22 @@ using System;
 using System.Collections;
 
 using starling.texture;
-using starling.errors;
 
 using pumpkin.display;
 using pumpkin.swf;
 
 namespace starling.display {
 	
-	public class Image : Sprite {
+	public class Quad : Sprite {
 		
-		private Material material;
-		private String textureName;
-		private bool materialExists;
-		private TextureManager textureManager;
-		private STexture mTexture;
 		private float mPivotX;
 		private float mPivotY;
+		
+		public Quad( float width, float height, Color color) : base() {
 			
-		public Image(STexture sTexture = null) : base()
-		{
-			if (sTexture != null)
-		    {
-				mPivotX = mPivotY = 0.0f;
-				textureManager = TextureManager.instance;
-				texture = sTexture;
-			}
-		    else
-		    {
-		        throw new ArgumentError("Texture cannot be null");
-		    }
+			mPivotX = mPivotY = 0.0f;
+			
+			this.graphics.drawSolidRectangle( color, 0, 0, width, height );
 		}
 			
 		private void overrideMatrix()
@@ -55,7 +42,7 @@ namespace starling.display {
 			matrix.tx = 0.0f;
 			matrix.ty = 0.0f;
 			
-		    float mRotation = m_Rotation * Mathf.PI / 180;
+			float mRotation = m_Rotation * Mathf.PI / 180;
 		    if (mRotation != 0.0f)
 		    {
 		        matrix.rotate(mRotation);
@@ -67,45 +54,10 @@ namespace starling.display {
 			this.setMatrixOverride( matrix );
 		}
 		
-		/** The texture that is displayed on the quad. */
-		public STexture texture
-		{
-			get { return mTexture; }
-			set {
-				if (value == null)
-		        {
-		            throw new ArgumentError("Texture cannot be null");
-		        }
-		        else if (mTexture != value)
-		        {
-		            mTexture = value;
-					SubTexture st = mTexture as SubTexture;
-					
-					textureName = st.parent.name;
-					materialExists = textureManager.materials.ContainsKey(textureName);
-					
-					//save draw calls by reusing existing uniSWF material
-					if(materialExists){
-						material = textureManager.materials[textureName];
-					}else{
-						material = new Material(TextureManager.baseBitmapShader);
-			        	material.mainTexture = st.parent;
-						textureManager.materials.Add(textureName, material);
-					}
-					
-					Rect srcRect = new Rect( st.clipping.x, st.clipping.y, st.clipping.width, st.clipping.height );
-					Rect drawRect = new Rect( -st.frame.x, -st.frame.y, st.frame.width, st.frame.height );
-					
-					this.graphics.clear();
-					this.graphics.drawRectUV(material, srcRect, drawRect);
-		        }
-			}
-		}
-		
 		public Color color
 		{
-			get { return this.colorTransform; }
-			set { this.colorTransform = value; }
+			get { return this.graphics.drawOPs[0].material.color; }
+			set { this.graphics.drawOPs[0].material.color = value; }
 		}
 		
 		/** The x coordinate of the object's origin in its own coordinate space (default: 0). */
@@ -144,18 +96,6 @@ namespace starling.display {
 		{
 			get { return m_y; }
 			set { m_y = value; overrideMatrix(); }
-		}
-		
-		public new float scaleX
-		{
-			get { return m_scaleX; }
-			set { m_scaleX = value; overrideMatrix(); }
-		}
-		
-		public new float scaleY
-		{
-			get { return m_scaleY; }
-			set { m_scaleY = value; overrideMatrix(); }
 		}
 		
 		public new float rotation
