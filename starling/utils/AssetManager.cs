@@ -205,19 +205,19 @@ namespace starling.utils {
 		{
 			foreach(var rawAsset in rawAssets)
 			{
-				var assetType = rawAsset.GetType().ToString();
+				var assetType = rawAsset.GetType();
 				
-				if(assetType == "UnityEngine.Texture2D" || assetType == "UnityEngine.Texture"){
+				if(assetType == typeof(UnityEngine.Texture2D) || assetType == typeof(UnityEngine.Texture)){
 					addTexture( (rawAsset as Texture).name, STexture.fromTexture((rawAsset as Texture), null, null) );
 				}
-				else if(assetType == "starling.texture.TextureAtlas"){
+				else if(assetType == typeof(starling.texture.TextureAtlas)){
 					addTextureAtlas( (rawAsset as TextureAtlas).name, (rawAsset as TextureAtlas) );
 				}
-				else if (assetType == "UnityEngine.TextAsset")
+				else if (assetType == typeof(UnityEngine.TextAsset))
 		        {
 		            addXML( (rawAsset as TextAsset).name, (rawAsset as TextAsset).text.toXmlDocument() );
 		        }
-				else if (assetType == "System.String")
+				else if (assetType == typeof(System.String))
 		        {
 		            enqueueWithName(rawAsset);
 		        }
@@ -260,7 +260,8 @@ namespace starling.utils {
 		private void resume()
 		{
 			currentRatio = mRawAssets.Count > 0 ? 0.9f - ((float)mRawAssets.Count / (float)numElements) : 0.9f;
-		    log ("ratio : " + currentRatio.ToString("F2"));    
+		    if(currentRatio < 0) currentRatio = 0;
+			log ("ratio : " + currentRatio.ToString("F2"));    
 			
 		    if (mRawAssets.Count > 0){
 				Starling.juggler.delayCall(processNext, 1.0f);
@@ -317,18 +318,18 @@ namespace starling.utils {
 		private void loadRawAsset(String name, object rawAsset, List<XmlDocument> xmls,
 		                              Delegate onProgress, Delegate onComplete)
 		{
-			var assetType = rawAsset.GetType().ToString();
-			if (assetType == "System.String")
+			var assetType = rawAsset.GetType();
+			if (assetType == typeof(System.String))
 			{
 		        var loadedAsset = Resources.Load(name);
-				var loadedAssetType = loadedAsset.GetType().ToString();
+				var loadedAssetType = loadedAsset.GetType();
 				
-				if(loadedAssetType == "UnityEngine.Texture2D" || loadedAssetType == "UnityEngine.Texture")
+				if(loadedAssetType == typeof(UnityEngine.Texture2D) || loadedAssetType == typeof(UnityEngine.Texture))
 				{
 					addTexture( (loadedAsset as Texture).name, STexture.fromTexture((loadedAsset as Texture), null, null) );
 					onComplete.DynamicInvoke();
 				}
-				else if(loadedAssetType == "UnityEngine.TextAsset")
+				else if(loadedAssetType == typeof(UnityEngine.TextAsset))
 				{
 					var xml = (loadedAsset as TextAsset).text.toXmlDocument();
 					addXML( (loadedAsset as TextAsset).name, xml );
@@ -356,16 +357,16 @@ namespace starling.utils {
 		 *  assets. */
 		protected String getName(object rawAsset)
 		{
-			var assetType = rawAsset.GetType().ToString();
-			if(assetType == "System.String")
+			var assetType = rawAsset.GetType();
+			if(assetType == typeof(System.String))
 			{
 				return rawAsset.ToString();
 			}
-			else if(assetType == "UnityEngine.Texture2D" || assetType == "UnityEngine.Texture")
+			else if(assetType == typeof(UnityEngine.Texture2D) || assetType == typeof(UnityEngine.Texture))
 			{
 				return (rawAsset as Texture).name;
 			}
-			else if(assetType == "starling.texture.TextureAtlas")
+			else if(assetType == typeof(starling.texture.TextureAtlas))
 			{
 				return (rawAsset as TextureAtlas).name;
 			}
